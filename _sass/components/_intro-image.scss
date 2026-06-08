@@ -2,33 +2,56 @@
   width: 100%;
   height: auto;
   margin-top: -40px;
+
+  // Mobile hero fix: the -40px lift above is tuned for the desktop absolute
+  // layout. On mobile the image is stacked below the title, so reset the lift
+  // and add breathing room between the call-to-action and the photo.
+  @include media-breakpoint-down(md) {
+    margin-top: 20px;
+  }
 }
+
 .intro-image-absolute {
   max-width: none;
-
   padding: 0;
   margin-bottom: 30px;
-  @include media-breakpoint-up(sm) {
-  }
+
   @include media-breakpoint-up(md) {
     position: absolute;
     bottom: -50px;
     left: -50px;
     width: 700px;
   }
+
   @include media-breakpoint-up(lg) {
     bottom: -60px;
     left: -60px;
     width: 800px;
   }
+
   @include media-breakpoint-up(xl) {
     bottom: -100px;
     left: -70px;
     width: 850px;
   }
 }
+
+// ⭐ Mobile hero fix — Jekyll Serif Starter
+// -----------------------------------------------------------------------------
+// Upstream Serif sets `.intro-image-hide-mobile { display: none }` below `md`,
+// completely hiding the hero image on phones. For the personal-brand / small
+// business vertical this starter targets, the hero photo (a face) is the main
+// conversion driver, so it must STAY VISIBLE and stack below the title on
+// mobile rather than disappear. We neutralise the hide here so the behaviour is
+// robust even if `intro_image_hide_on_mobile: true` is set in a page's front
+// matter. Mobile stacking order is handled by the grid `order-*` classes in
+// _layouts/home.html.
+// REGRESSION NOTE — at 375px wide the hero image MUST be visible and sit BELOW
+// the <h1>. If a future change re-hides it (e.g. re-adds `display: none` here
+// or reverts the order classes in home.html), this fix has regressed.
 .intro-image-hide-mobile {
-  display: none;
+  display: block;
+
   @include media-breakpoint-up(md) {
     display: block;
   }

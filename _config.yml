@@ -1,6 +1,6 @@
 baseurl: '/'
 permalink: pretty
-title: 'Jekyll Serif'
+title: 'Jekyll Serif Starter'
 
 logo:
   mobile: "images/logo/logo-mobile.svg"
@@ -49,3 +49,7 @@ exclude:
   - LICENSE.md
   - LICENSE
   - README.md
+  - CHANGELOG.md
+  - netlify.toml
+  - package.json
+  - package-lock.json
