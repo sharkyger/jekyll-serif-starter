@@ -1,103 +1,172 @@
-# Jekyll Serif Theme
+# Jekyll Serif Starter
 
-Serif is a modern business theme for Jekyll. It contains multiple content types for a typical brochure/marketing website. The theme is fully responsive, blazing fast and artfully illustrated.
+A fast, responsive **Jekyll business / personal‑brand starter** built on the
+open‑source [Serif](https://github.com/zerostaticthemes/jekyll-serif-theme)
+theme by Robert Austin ([Zerostatic Themes](https://www.zerostatic.io)). Fork
+it, drop in your content, colours, fonts, logo and photo, and ship.
 
-[Live Demo](https://jekyll-serif.netlify.app/) |
-[Zerostatic Themes](https://www.zerostatic.io)
+The one substantive change from upstream Serif is a **mobile hero fix**: Serif
+hides the hero image on phones, but here the hero photo stays visible and stacks
+neatly below the title — see [The mobile hero fix](#the-mobile-hero-fix).
 
-<a href="https://www.buymeacoffee.com/zerostatic" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+> This is a **generic** starter. Bring your own brand. Nothing here is tied to a
+> particular company.
 
-![Jekyll Serif Theme screenshot](https://www.zerostatic.io/theme/jekyll-serif/jekyll-serif-screenshot.png)
+---
 
-### Theme features
+## System requirements
 
-- Jekyll 4.2+
-- Netlify & Github Pages ready
-- Services (Collection)
-- Team (Collection)
-- Features (Data)
-- SCSS
-- 100% Responsive design, animated hamburger and mobile slide in menu
-- Bootstrap 4.6 - _Only the bootstrap grid and utilites are imported by default. If you want to use more of the Boostrap library you can uncomment the `@import` in `style.scss`_
-- 100/100 Google Lighthouse speed score
-- 100/100 Google Lighthouse seo score
-- 100/100 Google Lighthouse accessibility score
-- 100/100 Google Lighthouse best practices score
-- Under 50KB without images or 80KB with images and illustrations ⚡
-- Under 20KB without Google fonts ⚡⚡⚡
-- Robust example content included
-- Royalty free illustrations included
+| Tool        | Version                          | Notes                                              |
+| ----------- | -------------------------------- | -------------------------------------------------- |
+| **Ruby**    | 3.2 or newer (CI runs on 3.3)    | See [`.ruby-version`](.ruby-version)               |
+| **Bundler** | 2.x or newer                     | `gem install bundler`                              |
+| **Jekyll**  | 4.x (installed via Bundler)      | Pinned in [`Gemfile`](Gemfile) / `Gemfile.lock`    |
+| **Node.js** | LTS — *only* to run SCSS linting | Optional; not needed to build or serve the site    |
 
-## Installation
+The published site is **static HTML/CSS/JS** — no server‑side code or runtime
+dependencies. Ruby/Node are build‑time tools only.
 
-### Installing Ruby & Jekyll
+---
 
-If this is your first time using Jekyll, please follow the [Jekyll docs](https://jekyllrb.com/docs/installation/) and make sure your local environment (including Ruby) is setup correctly.
+## Usage
 
-### Installing Theme
+### 1. Get the code
 
-Download or clone the theme.
+Use this repository as a template (or fork it), then clone your copy:
 
-To run the theme locally, navigate to the theme directory and run:
-
-```
+```bash
+git clone https://github.com/<you>/<your-site>.git
+cd <your-site>
 bundle install
 ```
 
-To start the Jekyll local development server.
+### 2. Run it locally
 
-```
+```bash
 bundle exec jekyll serve
+# → http://localhost:4000
 ```
 
-To build the theme.
+The site rebuilds automatically as you edit. Press <kbd>Ctrl</kbd>+<kbd>C</kbd>
+to stop.
 
+### 3. Make it yours
+
+| What                | Where                                                                       |
+| ------------------- | --------------------------------------------------------------------------- |
+| Site title / logo   | [`_config.yml`](_config.yml) (`title`, `logo`) + `images/logo/`             |
+| Home hero + copy    | [`index.md`](index.md) (front matter + Markdown body)                       |
+| Hero illustration   | `intro_image:` in [`index.md`](index.md); files live in `images/`           |
+| Colours             | `$primary`, `$secondary`, … at the top of [`assets/css/style.scss`](assets/css/style.scss) |
+| Fonts               | Google Fonts link in [`_layouts/default.html`](_layouts/default.html) + `$font-family-*` in `style.scss` |
+| Navigation          | [`_data/menus.yml`](_data/menus.yml)                                        |
+| Contact details     | [`_data/contact.yml`](_data/contact.yml)                                    |
+| Social links        | [`_data/social.json`](_data/social.json)                                    |
+| Footer / SEO        | [`_data/seo.yml`](_data/seo.yml)                                            |
+| "Features" row      | [`_data/features.json`](_data/features.json)                                |
+| Services (cards)    | Markdown files in [`_services/`](_services/)                                |
+| Team members        | Markdown files in [`_team/`](_team/)                                         |
+| Pages               | `about.md`, `services.md`, `team.md`, `contact.md`                          |
+
+> **Swap the hero for a real photo.** For personal‑brand sites, replace the
+> illustration in `intro_image:` with a portrait. It stays visible on mobile by
+> design (see below), because a face is the strongest conversion driver.
+
+---
+
+## Installation
+
+```bash
+# 1. Install a supported Ruby (3.2+). Using a version manager is recommended:
+#    rbenv install 3.3.x  &&  rbenv local 3.3.x
+# 2. Install Bundler and the project gems:
+gem install bundler
+bundle install
+# 3. Build or serve:
+bundle exec jekyll build        # → _site/
+bundle exec jekyll serve        # → http://localhost:4000
 ```
-bundle exec jekyll build
+
+### Optional: SCSS linting
+
+SCSS is linted with [stylelint](https://stylelint.io/). This needs Node.js and
+is **not** required to build the site:
+
+```bash
+npm install
+npm run lint:css
 ```
+
+---
 
 ## Deployment
 
-### Netlify
+This starter ships with the
+[`jekyll-environment-variables`](https://rubygems.org/gems/jekyll-environment-variables)
+plugin, which is **not** on GitHub Pages' built‑in allow‑list. So:
 
-Use Netlify to deploy this theme. This theme contains a valid and tested `netlify.toml` - Feel free to use the 1-click deploy below.
+### GitHub Actions → GitHub Pages (recommended, and what's wired up)
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/zerostaticthemes/jekyll-serif-theme)
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) builds the site
+with **Jekyll 4.x** (full plugin support) and deploys it to GitHub Pages on every
+push to `main`. To enable it once:
 
-### Github Pages
+1. Push this repository to GitHub.
+2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
 
-This theme has been tested to work with Github Pages (and Github Project Pages). When using Github Pages you will need to update the `baseurl` in the `_config.yml` otherwise all the css, images and paths will be broken.
+That's it — the workflow handles the project‑site base path automatically.
 
-For example the site https://zerostaticthemes.github.io/jekyll-serif-theme would have `baseurl: "/jekyll-serif-theme/"`
+### Alternatives
 
-## Extras
+- **Netlify** — [`netlify.toml`](netlify.toml) is preconfigured
+  (`bundle exec jekyll build`, Ruby 3.3). Point Netlify at the repo and deploy.
+- **Native GitHub Pages (no Actions)** — only works if you first remove the
+  `jekyll-environment-variables` plugin from `_config.yml` and the `Gemfile`,
+  since GitHub's built‑in Jekyll (3.x) won't load it.
 
-### License
+---
 
-- You cannot create ports of this theme
-- You cannot re-sell this theme
+## The mobile hero fix
 
-### Credits
+Upstream Serif sets `display: none` on the hero image below the `md` breakpoint,
+so the hero is **completely hidden on phones**. For business and personal‑brand
+sites the hero — often a photo of a person — is the main conversion driver, so
+this starter keeps it visible and **stacks it below the title** on mobile.
 
-- Beautiful royalty free Illustrations by Icons8 - https://icons8.com/illustrations/style--pixeltrue
-- Stock images by Unsplash - https://unsplash.com/
-- Feature icons by Noun Project - https://thenounproject.com/
+- SCSS override: [`_sass/components/_intro-image.scss`](_sass/components/_intro-image.scss)
+  (the `.intro-image-hide-mobile` rule no longer hides the image; carries a
+  regression note).
+- Layout order: [`_layouts/home.html`](_layouts/home.html) uses
+  `order-1`/`order-2` so the title comes first and the photo second on mobile,
+  while the desktop side‑by‑side layout is unchanged.
 
-## Support My Work
+**Regression check:** at **375 px** wide the hero image must be visible and sit
+**below** the `<h1>`.
 
-I've been building open source themes for all the main static site generators for over 4 years now. My premium themes allow me to continue to allocate time to maintain, improve and build new open source themes.
+---
 
-1. Leave a star ⭐🙏🏻
-2. Make a contribution to this theme, add a feature, fix a bug, nothing is to small 
-2. Mention this theme on twitter [@zerostaticio](https://twitter.com/zerostaticio) 📢
-3. Purchase a premium theme 🔥
+## Tooling
 
-### All Jekyll Themes by Zerostatic
+| Check                  | Command                    | CI                                   |
+| ---------------------- | -------------------------- | ------------------------------------ |
+| Build                  | `bundle exec jekyll build` | [`ci.yml`](.github/workflows/ci.yml) |
+| Broken links / images  | `htmlproofer ./_site`      | `ci.yml` (internal links only)       |
+| Gem vulnerabilities    | `bundle-audit check`       | `ci.yml`                             |
+| SCSS lint              | `npm run lint:css`         | `ci.yml`                             |
 
-- [Jekyll Serif (Open Source)](https://www.zerostatic.io/theme/jekyll-serif/)
-- [Jekyll Atlantic (Open Source)](https://www.zerostatic.io/theme/jekyll-atlantic/)
-- [Jekyll Advance (Premium)](https://www.zerostatic.io/theme/jekyll-advance/)
-- [Jekyll Origin (Premium)](https://www.zerostatic.io/theme/jekyll-origin/)
-- [Jekyll Curate (Premium)](https://www.zerostatic.io/theme/jekyll-curate/)
+`html-proofer` and `bundler-audit` are **CI‑only** tools — they are not part of
+the project `Gemfile` and never ship in the static output. CI installs current,
+patched versions of them at run time.
 
-🇦🇺 **Made in Australia** by Robert Austin
+---
+
+## License & credits
+
+This project is released under the [MIT License](LICENSE).
+
+- Original **Serif** theme © Robert Austin / [Zerostatic Themes](https://www.zerostatic.io)
+  — MIT. Thank you for the excellent base theme.
+- **Jekyll Serif Starter** modifications (mobile hero fix, tooling, CI, docs)
+  © [Sharky](https://github.com/sharkyger) — MIT.
+
+Hero and feature illustrations ship with the upstream Serif theme.

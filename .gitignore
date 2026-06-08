@@ -1,4 +1,4 @@
-# NPM
+# Node (stylelint dev tooling)
 node_modules
 npm-debug.log
 
@@ -8,8 +8,13 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
-Gemfile.lock
-**/Gemfile.lock
+
+# Bundler
+# NOTE: Gemfile.lock IS committed (supply-chain pinning). Do not ignore it.
+.bundle/
+vendor/bundle
+vendor/cache
+vendor/ruby
 
 # Temporary files
 tmp
