@@ -1,4 +1,6 @@
-google_analytics_id: ""  
-meta_twitter_site: "@zerostaticio"
-meta_twitter_creator: "@zerostaticio"
-copyright_text: 'Free Jekyll theme by <a class="zerostatic" href="https://www.zerostatic.io">www.zerostatic.io</a>'
+# Site-wide SEO and footer settings. Replace the placeholders below when you
+# fork this starter for a real site.
+google_analytics_id: ""          # leave empty for no analytics (see _includes/google-analytics.html)
+meta_twitter_site: ""            # e.g. "@yourhandle"
+meta_twitter_creator: ""         # e.g. "@yourhandle"
+copyright_text: 'Built with <a href="https://github.com/sharkyger/jekyll-serif-starter">Jekyll Serif Starter</a>'

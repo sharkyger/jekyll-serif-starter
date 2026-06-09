@@ -1,13 +1,13 @@
 ---
-title: Jekyll Serif Theme
+title: Jekyll Serif Starter
 layout: home
-description: Jekyll Serif contains content types for a typical business website. The theme is fully responsive, blazing fast and artfully illustrated.
+description: A fast, responsive Jekyll business starter based on the Serif theme, with a mobile-friendly hero. Fork it and make it yours.
 intro_image: "images/illustrations/pointing.svg"
 intro_image_absolute: true
-intro_image_hide_on_mobile: true
+intro_image_hide_on_mobile: false
 show_call_box: true
 ---
 
-# Serif - A Jekyll Business Theme.
+# A Jekyll business starter, ready to make your own.
 
-Serif contains content types for a typical business website. The theme is fully responsive, blazing fast and artfully illustrated.
+This is a fork-and-go starter for a typical business or personal-brand website. It is fully responsive, fast, and the hero image now stays visible on mobile. Edit this page, the content collections, colors and logo to make it yours.

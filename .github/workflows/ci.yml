@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Build, lint and proof
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- Ruby / Jekyll ---
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Ruby version comes from .ruby-version (single source of truth).
+          bundler-cache: true # runs bundle install and caches gems
+
+      - name: Audit gems (bundler-audit)
+        run: |
+          gem install bundler-audit
+          bundle-audit check --update
+
+      - name: Build site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+
+      - name: Proof built site (html-proofer)
+        run: |
+          gem install html-proofer
+          # Internal links, images and scripts only. External links (social
+          # placeholders) are intentionally skipped to keep CI deterministic.
+          htmlproofer ./_site --disable-external
+
+      # --- Node / SCSS lint ---
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: npm
+
+      - name: Lint SCSS (stylelint)
+        run: |
+          npm ci
+          npm run lint:css
