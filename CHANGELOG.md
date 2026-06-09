@@ -19,7 +19,8 @@ starter with a mobile‑friendly hero and a professional tooling floor.
 - **Mobile hero fix** — the hero image now stays visible on mobile and stacks
   below the title (upstream Serif hid it via `display: none`). SCSS override in
   `_sass/components/_intro-image.scss` with a regression note, plus grid
-  `order-*` changes in `_layouts/home.html`. Verified at 375 px.
+  `order-*` changes in every hero layout (`_layouts/home.html`,
+  `_layouts/services.html`, `_layouts/teams.html`). Verified at 375 px.
 - **Dependency pinning** — committed `Gemfile.lock` (Jekyll 4.4.1, webrick
   1.9.2, jekyll‑environment‑variables 1.0.1); all CVE‑clean and past the
   supply‑chain freshness hold.
@@ -52,6 +53,8 @@ starter with a mobile‑friendly hero and a professional tooling floor.
 
 - Twitter card meta tags in `_layouts/default.html` referenced `site.seo.*`
   instead of `site.data.seo.*` and never rendered.
+- Unquoted `alt={{ page.title }}` in `_layouts/services.html` and
+  `_layouts/teams.html` (would truncate multi-word titles); now quoted.
 
 ### Removed
 

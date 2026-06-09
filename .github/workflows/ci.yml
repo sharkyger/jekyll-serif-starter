@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches-ignore: []
+    branches: [main]
   pull_request:
 
 permissions:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3"
+          # Ruby version comes from .ruby-version (single source of truth).
           bundler-cache: true # runs bundle install and caches gems
 
       - name: Audit gems (bundler-audit)
@@ -37,10 +37,7 @@ jobs:
           gem install html-proofer
           # Internal links, images and scripts only. External links (social
           # placeholders) are intentionally skipped to keep CI deterministic.
-          htmlproofer ./_site \
-            --disable-external \
-            --allow-hash-href \
-            --ignore-empty-alt
+          htmlproofer ./_site --disable-external
 
       # --- Node / SCSS lint ---
       - name: Set up Node
