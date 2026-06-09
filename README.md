@@ -108,8 +108,9 @@ plugin, which is **not** on GitHub Pages' built‑in allow‑list. So:
 ### GitHub Actions → GitHub Pages (recommended, and what's wired up)
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) builds the site
-with **Jekyll 4.x** (full plugin support) and deploys it to GitHub Pages on every
-push to `main`. To enable it once:
+with **Jekyll 4.x** (full plugin support) and deploys it to GitHub Pages **after
+CI passes on `main`** (the deploy is gated on a green CI run, so a broken build
+never ships). To enable it once:
 
 1. Push this repository to GitHub.
 2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**

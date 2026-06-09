@@ -2,8 +2,14 @@ name: Deploy to GitHub Pages
 
 # Builds the site with Jekyll 4.x (full plugin support, unlike GitHub Pages'
 # built-in Jekyll) and deploys the result to GitHub Pages via Actions.
+#
+# Deploy is gated on a GREEN CI run: this workflow only fires after the "CI"
+# workflow completes successfully on main (workflow_run). Nothing ships unless
+# build/lint/proof/audit passed first. workflow_dispatch allows manual deploys.
 on:
-  push:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
     branches: [main]
   workflow_dispatch:
 
@@ -20,6 +26,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Deploy only on a successful CI run (or a manual dispatch).
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
 
