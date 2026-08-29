@@ -1,0 +1,40 @@
+version: 2
+# Added 2026-08-29. This repo had NO dependabot.yml, so Dependabot ran no
+# VERSION updates at all — only security updates, which fire from repo settings
+# without a config. The result looked healthy (few PRs) while the tree drifted.
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      bundler:
+        applies-to: version-updates
+        patterns: ["*"]
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      npm:
+        applies-to: version-updates
+        patterns: ["*"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "ci"
+    groups:
+      github-actions:
+        applies-to: version-updates
+        patterns: ["*"]
