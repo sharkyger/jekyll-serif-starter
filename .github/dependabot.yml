@@ -2,14 +2,18 @@ version: 2
 # Added 2026-08-29. This repo had NO dependabot.yml, so Dependabot ran no
 # VERSION updates at all — only security updates, which fire from repo settings
 # without a config. The result looked healthy (few PRs) while the tree drifted.
+# NOTE: no `labels:` here on purpose. Dependabot uses the INTERSECTION of a
+# configured label list with labels that already exist in the repo, and stops
+# auto-creating its own. None of these repos has `ci` or `dependencies`, so a
+# configured list would mean NO labels at all — verified on pip-cve-gate, whose
+# PRs came back with an empty label set. Left unset, Dependabot applies its own
+# (`dependencies`, `github_actions`, `python`, …), which is what we want.
 updates:
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
     groups:
       bundler:
         applies-to: version-updates
@@ -20,8 +24,6 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
     groups:
       npm:
         applies-to: version-updates
@@ -32,8 +34,6 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
-    labels:
-      - "ci"
     groups:
       github-actions:
         applies-to: version-updates
